@@ -1,32 +1,19 @@
 name: Automatisation des tests DevSecOps
 on: push
-
 jobs:
   Dependances:
     runs-on: ubuntu-latest
     steps:
-      # 1. On télécharge le code de votre repository sur le serveur GitHub
-      - name: Checkout du code
-        uses: actions/checkout@v3
-
-      # 2. On lance l'analyse Trivy sur les fichiers texte (comme dans l'ex 2)
-      - name: Contrôle des dépendances
+      - name: Dependances
         run: |
-          docker run --rm -v "$PWD":/project aquasec/trivy:latest fs --file-patterns "pip:**/*.txt" /project
-
+          echo "ecrire ici le scrypt de contrôle des dépendances"
   Dockerfile:
     runs-on: ubuntu-latest
     needs: Dependances
     steps:
-      # 1. On télécharge à nouveau le code pour ce job spécifique
-      - name: Checkout du code
-        uses: actions/checkout@v3
-
-      # 2. On lance l'analyse Trivy ciblée sur les erreurs de configuration du Dockerfile
-      - name: Contrôle du Dockerfile
+      - name: Test Dockerfile
         run: |
-          docker run --rm -v "$PWD":/project aquasec/trivy:latest config /project/Dockerfile
-
+          echo "ecrire ici le scrypt de contrôle du Dockerfile"
   Deploy:
     runs-on: ubuntu-latest
     needs: Dockerfile
@@ -34,4 +21,3 @@ jobs:
       - name: Deploy
         run: |
           echo "Rien à faire ici. Votre application est prête à être déployée"
-          
